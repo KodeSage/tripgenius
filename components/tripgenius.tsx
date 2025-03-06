@@ -1,6 +1,4 @@
 "use client";
-
-import type React from "react";
 import { useState } from "react";
 import { useFireproof } from "use-fireproof";
 import type { TripDocument, Budget, TravelMode, TripPlan } from "./types";
@@ -72,19 +70,21 @@ function TripGenius() {
 
   // Function to delete a trip
   const deleteTrip = async (id: string) => {
-     try {
-       // Check if running in a browser environment
-       if (
-         typeof window !== "undefined" &&
-         window.confirm("Are you sure you want to delete this trip plan?")
-       ) {
-         await database.del(id);
-         toast.success("Trip plan deleted successfully");
-       }
-     } catch (error) {
-       console.error("Error deleting trip:", error);
-       toast.error("Failed to delete trip plan");
-     }
+    try {
+      // Check if running in a browser environment
+      //  if (
+      //    typeof window !== "undefined" &&
+      //    window.confirm("Are you sure you want to delete this trip plan?")
+      //  ) {
+      //    await database.del(id);
+      //    toast.success("Trip plan deleted successfully");
+      //  }
+      await database.del(id);
+      toast.success("Trip plan deleted successfully");
+    } catch (error) {
+      console.error("Error deleting trip:", error);
+      toast.error("Failed to delete trip plan");
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -101,6 +101,11 @@ function TripGenius() {
         !doc.budget
       ) {
         toast.error("Please fill all details correctly");
+        setLoading(false);
+        return;
+      }
+      if (!chatSession) {
+        toast.error("Chat service is not available");
         setLoading(false);
         return;
       }
