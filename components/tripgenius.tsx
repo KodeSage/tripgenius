@@ -394,6 +394,7 @@ function TripGenius() {
               formatBudgetLabel={formatBudgetLabel}
               formatTravelModeLabel={formatTravelModeLabel}
               deleteTrip={deleteTrip}
+              setActiveTab={setActiveTab}
             />
           </TabsContent>
         </Tabs>
